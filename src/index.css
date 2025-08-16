@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+button:hover{
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
