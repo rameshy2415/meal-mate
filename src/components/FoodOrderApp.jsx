@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ShoppingCart,
   Search,
@@ -16,19 +16,28 @@ import {
   CircleUserRound,
   ChevronUp,
   ChevronDown,
-  LogOut ,
+  LogOut,
   Bell,
-  Gift ,
-  Heart ,
-  BaggageClaim ,
-  CirclePoundSterling ,
+  Gift,
+  Heart,
+  BaggageClaim,
+  CirclePoundSterling,
   UserPen,
-  TicketPercent  
+  TicketPercent,
+  EllipsisVertical,
+  Headset,
+  BellRing,
+  HandPlatter,
+  TrendingUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 export default function FoodOrderApp() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLeftMenu, setLeftMenu] = useState(false);
   const [isAuth, setAuth] = useState(false);
+  const [isThreeDot, setThreeDot] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
   const [cartItems, setCartItems] = useState([
@@ -174,6 +183,74 @@ export default function FoodOrderApp() {
   const tax = cartTotal * 0.1;
   const grandTotal = cartTotal + deliveryFee + tax;
 
+  // Carousel data
+  const carouselSlides = [
+    {
+      id: 1,
+      title: "30% Off on Pizza",
+      subtitle: "Limited Time Offer",
+      description: "Get your favorite pizzas with amazing discounts",
+      image: "🍕",
+      bgColor: "from-red-500 to-orange-500",
+      buttonText: "Order Now",
+    },
+    {
+      id: 2,
+      title: "Free Delivery",
+      subtitle: "On Orders Above $25",
+      description: "No delivery charges for orders over $25",
+      image: "🚚",
+      bgColor: "from-green-500 to-blue-500",
+      buttonText: "Start Ordering",
+    },
+    {
+      id: 3,
+      title: "Fresh Salads",
+      subtitle: "Healthy & Delicious",
+      description: "Farm fresh ingredients delivered to your door",
+      image: "🥗",
+      bgColor: "from-purple-500 to-pink-500",
+      buttonText: "Explore Menu",
+    },
+    {
+      id: 4,
+      title: "Burger Combo",
+      subtitle: "Buy 1 Get 1 Free",
+      description: "Double the taste, double the fun",
+      image: "🍔",
+      bgColor: "from-yellow-500 to-red-500",
+      buttonText: "Order Combo",
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, carouselSlides.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
   const handleCheckout = () => {
     setShowCheckout(true);
     setCurrentStep("address");
@@ -221,12 +298,22 @@ export default function FoodOrderApp() {
     <>
       <div className="min-h-screen flex flex-col bg-gray-50">
         {/* Header */}
-        <header className="bg-white shadow-sm sticky top-0">
+        <header className="bg-white md:shadow-sm sticky top-0  z-60">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center space-x-4">
-                <div className="text-2xl font-bold text-orange-600">
-                  🍴 FoodHub
+                <button
+                  className="md:hidden p-2 text-gray-600"
+                  onClick={() => setLeftMenu((prev) => !prev)}
+                >
+                  <Menu className="h-6 w-6" />
+                </button>
+
+                <div>
+                  <HandPlatter className="h-8 w-8 text-orange-500" />
+                </div>
+                <div className="text-2xl font-bold text-orange-600 hidden md:block">
+                  FoodHub
                 </div>
                 <div className="hidden md:flex items-center space-x-2 text-orange-500">
                   <MapPin className="h-4 w-4" />
@@ -247,7 +334,10 @@ export default function FoodOrderApp() {
 
               <div className="relative flex items-center p-2 rounded-lg hover:text-orange-600 hover:cursor-pointer hover:bg-orange-50">
                 <button
-                  onClick={() => setAuth((prev) => !prev)}
+                  onClick={() => {
+                    setAuth((prev) => !prev);
+                    setThreeDot(false);
+                  }}
                   className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
                 >
                   <CircleUserRound className="h-5 w-5" />
@@ -257,64 +347,94 @@ export default function FoodOrderApp() {
                 </button>
 
                 {isAuth && (
-                    <ul className="h-auto w-50 bg-gray-50 absolute top-11 -right-23 shadow-lg text-gray-500 text-xs rounded-lg flex flex-col">
-                      <a href="#" className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <UserPen  className="h-4 w-4" />
-                          <h4 className="font-medium">My Profile</h4>
-                        </li>
-                      </a>
+                  <ul className="h-auto w-50 bg-gray-50 absolute top-10 left-0 shadow-lg text-gray-500 text-xs rounded-lg flex flex-col">
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <UserPen className="h-4 w-4" />
+                        <h4 className="font-medium">My Profile</h4>
+                      </li>
+                    </a>
 
-                       <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <CirclePoundSterling  className="h-4 w-4" />
-                          <h4 className="font-medium">SuperCoin Zone</h4>
-                        </li>
-                      </a>
-                       <a href="#" className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <BaggageClaim  className="h-4 w-4" />
-                          <h4 className="font-medium">Orders</h4>
-                        </li>
-                      </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <CirclePoundSterling className="h-4 w-4" />
+                        <h4 className="font-medium">SuperCoin Zone</h4>
+                      </li>
+                    </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <BaggageClaim className="h-4 w-4" />
+                        <h4 className="font-medium">Orders</h4>
+                      </li>
+                    </a>
 
-                       <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <Heart  className="h-4 w-4" />
-                          <h4 className="font-medium">Wishlist</h4>
-                        </li>
-                      </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <Heart className="h-4 w-4" />
+                        <h4 className="font-medium">Wishlist</h4>
+                      </li>
+                    </a>
 
-                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <TicketPercent  className="h-4 w-4" />
-                          <h4 className="font-medium">Coupons</h4>
-                        </li>
-                      </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <TicketPercent className="h-4 w-4" />
+                        <h4 className="font-medium">Coupons</h4>
+                      </li>
+                    </a>
 
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <Gift className="h-4 w-4" />
+                        <h4 className="font-medium">Gift Cards</h4>
+                      </li>
+                    </a>
 
-                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <Gift  className="h-4 w-4" />
-                          <h4 className="font-medium">Gift Cards</h4>
-                        </li>
-                      </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <Bell className="h-4 w-4" />
+                        <h4 className="font-medium">Notifications</h4>
+                      </li>
+                    </a>
 
-                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <Bell  className="h-4 w-4" />
-                          <h4 className="font-medium">Notifications</h4>
-                        </li>
-                      </a>
-
-                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
-                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
-                          <LogOut  className="h-4 w-4" />
-                          <h4 className="font-medium">Logout</h4>
-                        </li>
-                      </a>
-                    </ul>
-              
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <LogOut className="h-4 w-4" />
+                        <h4 className="font-medium">Logout</h4>
+                      </li>
+                    </a>
+                  </ul>
                 )}
               </div>
 
@@ -330,9 +450,55 @@ export default function FoodOrderApp() {
                     </span>
                   )}
                 </button>
-                <button className="md:hidden p-2 text-gray-600">
-                  <Menu className="h-6 w-6" />
+              </div>
+
+              <div className="relative flex items-center p-2 rounded-lg hover:text-orange-600 hover:cursor-pointer">
+                <button
+                  onClick={() => {
+                    setThreeDot((prev) => !prev);
+                    setAuth(false);
+                  }}
+                  className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
+                >
+                  <EllipsisVertical className="h-6 w-6" />
                 </button>
+
+                {isThreeDot && (
+                  <ul className="h-auto w-50 bg-gray-50 absolute top-11 right-0 shadow-lg text-gray-500 text-xs rounded-lg flex flex-col">
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <BellRing className="h-4 w-4" />
+                        <h4 className="font-medium">
+                          Notification Preferences
+                        </h4>
+                      </li>
+                    </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <Headset className="h-4 w-4" />
+                        <h4 className="font-medium">24x7 Customer Care</h4>
+                      </li>
+                    </a>
+                    <a
+                      href="#"
+                      className="hover:bg-gray-100 py-3 px-2"
+                      title="My Profile"
+                    >
+                      <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                        <TrendingUp className="h-4 w-4" />
+                        <h4 className="font-medium">Advertise</h4>
+                      </li>
+                    </a>
+                  </ul>
+                )}
               </div>
             </div>
           </div>
@@ -340,6 +506,97 @@ export default function FoodOrderApp() {
 
         <main className="flex-1 overflow-y-auto p-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            {/* Responsive Carousel */}
+            <div className="mb-8">
+              <div
+                className="relative overflow-hidden rounded-2xl shadow-lg"
+                onMouseEnter={() => setIsAutoPlaying(false)}
+                onMouseLeave={() => setIsAutoPlaying(true)}
+              >
+                {/* Carousel Container */}
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                >
+                  {carouselSlides.map((slide) => (
+                    <div
+                      key={slide.id}
+                      className={`w-full flex-shrink-0 bg-gradient-to-r ${slide.bgColor} relative`}
+                    >
+                      <div className="px-8 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20">
+                        <div className="flex flex-col md:flex-row items-center justify-between">
+                          {/* Content */}
+                          <div className="text-white mb-8 md:mb-0 md:w-2/3 text-center md:text-left">
+                            <div className="text-sm md:text-base opacity-90 mb-2 font-medium">
+                              {slide.subtitle}
+                            </div>
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                              {slide.title}
+                            </h1>
+                            <p className="text-lg md:text-xl opacity-90 mb-6 max-w-md">
+                              {slide.description}
+                            </p>
+                            <button className="bg-white text-gray-800 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg transform hover:scale-105">
+                              {slide.buttonText}
+                            </button>
+                          </div>
+
+                          {/* Image/Icon */}
+                          <div className="md:w-1/3 flex justify-center">
+                            <div className="text-8xl md:text-9xl lg:text-[12rem] opacity-80 transform hover:scale-110 transition-transform duration-300">
+                              {slide.image}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-25 hover:bg-opacity-30 text-orange-500 p-2 md:p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
+                >
+                  <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg- hover:bg-opacity-30 text-orange-500 p-2 md:p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
+                >
+                  <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {carouselSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                        currentSlide === index
+                          ? "bg-white"
+                          : "bg-white bg-opacity-50 hover:bg-opacity-75"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Progress Bar */}
+                <div className="absolute bottom-0 left-0 w-full bg-white bg-opacity-30">
+                  <div
+                    className="h-full bg-white transition-all duration-300"
+                    style={{
+                      width: `${
+                        ((currentSlide + 1) / carouselSlides.length) * 100
+                      }%`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Hero Section */}
             <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 text-white mb-8">
               <div className="max-w-2xl">
@@ -369,9 +626,6 @@ export default function FoodOrderApp() {
 
             {/* Categories */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Categories
-              </h2>
               <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
                 {categories.map((category) => (
                   <button
@@ -453,9 +707,10 @@ export default function FoodOrderApp() {
             </span>
           </div>
         </footer>
+
         {/* Cart Sidebar */}
         {isCartOpen && (
-          <div className="fixed inset-0 z-50 overflow-hidden">
+          <div className="fixed inset-0 z-70 overflow-hidden">
             <div
               className="absolute inset-0 bg-opacity-50"
               onClick={() => setIsCartOpen(false)}
@@ -994,6 +1249,40 @@ export default function FoodOrderApp() {
                     )}
                   </div>
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Sidebar Menu */}
+        {isLeftMenu && (
+          <div className="fixed inset-0 z-70 overflow-hidden">
+            <div
+              className="absolute inset-0 bg-opacity-50"
+              onClick={() => setLeftMenu(false)}
+            ></div>
+            <div className="absolute left-0 top-0 h-full w-2/3 max-w-md bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto">
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-around p-3 bg-orange-500 text-gray-100 space-x-4">
+                  <div className="flex items-center justify-start bg-orange-500 text-gray-100 space-x-4">
+                    <button
+                      onClick={() => setLeftMenu(false)}
+                      className="p-2 hover:bg-gray-100 rounded-full"
+                    >
+                      <CircleUserRound className="h-6 w-6" />
+                    </button>
+                    <h2 className="text-xl font-semibold">Ramesh</h2>
+                  </div>
+
+                  <button
+                    onClick={() => setLeftMenu(false)}
+                    className="p-2 rounded-full"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                <div className="flex-1 p-6 h-full"></div>
               </div>
             </div>
           </div>
