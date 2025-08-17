@@ -13,10 +13,22 @@ import {
   Home,
   Building,
   User,
+  CircleUserRound,
+  ChevronUp,
+  ChevronDown,
+  LogOut ,
+  Bell,
+  Gift ,
+  Heart ,
+  BaggageClaim ,
+  CirclePoundSterling ,
+  UserPen,
+  TicketPercent  
 } from "lucide-react";
 
 export default function FoodOrderApp() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAuth, setAuth] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
   const [cartItems, setCartItems] = useState([
@@ -216,7 +228,7 @@ export default function FoodOrderApp() {
                 <div className="text-2xl font-bold text-orange-600">
                   🍴 FoodHub
                 </div>
-                <div className="hidden md:flex items-center space-x-2 text-gray-600">
+                <div className="hidden md:flex items-center space-x-2 text-orange-500">
                   <MapPin className="h-4 w-4" />
                   <span className="text-sm">Deliver to: Mumbai, MH</span>
                 </div>
@@ -231,6 +243,79 @@ export default function FoodOrderApp() {
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   />
                 </div>
+              </div>
+
+              <div className="relative flex items-center p-2 rounded-lg hover:text-orange-600 hover:cursor-pointer hover:bg-orange-50">
+                <button
+                  onClick={() => setAuth((prev) => !prev)}
+                  className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
+                >
+                  <CircleUserRound className="h-5 w-5" />
+                  <span className="text-md">Login</span>
+                  {isAuth && <ChevronUp className="h-4 w-4 " />}
+                  {!isAuth && <ChevronDown className="h-4 w-4 " />}
+                </button>
+
+                {isAuth && (
+                    <ul className="h-auto w-50 bg-gray-50 absolute top-11 -right-23 shadow-lg text-gray-500 text-xs rounded-lg flex flex-col">
+                      <a href="#" className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <UserPen  className="h-4 w-4" />
+                          <h4 className="font-medium">My Profile</h4>
+                        </li>
+                      </a>
+
+                       <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <CirclePoundSterling  className="h-4 w-4" />
+                          <h4 className="font-medium">SuperCoin Zone</h4>
+                        </li>
+                      </a>
+                       <a href="#" className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <BaggageClaim  className="h-4 w-4" />
+                          <h4 className="font-medium">Orders</h4>
+                        </li>
+                      </a>
+
+                       <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <Heart  className="h-4 w-4" />
+                          <h4 className="font-medium">Wishlist</h4>
+                        </li>
+                      </a>
+
+                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <TicketPercent  className="h-4 w-4" />
+                          <h4 className="font-medium">Coupons</h4>
+                        </li>
+                      </a>
+
+
+                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <Gift  className="h-4 w-4" />
+                          <h4 className="font-medium">Gift Cards</h4>
+                        </li>
+                      </a>
+
+                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <Bell  className="h-4 w-4" />
+                          <h4 className="font-medium">Notifications</h4>
+                        </li>
+                      </a>
+
+                        <a href="#"className="hover:bg-gray-100 py-3 px-2" title="My Profile" >
+                        <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                          <LogOut  className="h-4 w-4" />
+                          <h4 className="font-medium">Logout</h4>
+                        </li>
+                      </a>
+                    </ul>
+              
+                )}
               </div>
 
               <div className="flex items-center space-x-4">
@@ -360,8 +445,8 @@ export default function FoodOrderApp() {
           </div>
         </main>
 
-        <footer className="sticky bottom-0 bg-white shadow-md p-4">
-          <div className="flex justify-center space-x-4 text-center text-gray-600 mx-2 md:mx-0">
+        <footer className="bg-white shadow-sm sticky bottom-0 py-4">
+          <div className="flex justify-center space-x-4 text-center text-orange-500 font-semibold mx-2 md:mx-0">
             <span className="text-sm">
               © {new Date().getFullYear()} Techinsights Community. All Rights
               Reserved
@@ -377,7 +462,7 @@ export default function FoodOrderApp() {
             ></div>
             <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto">
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b">
+                <div className="flex items-center justify-between p-6 border-b border-orange-500">
                   <h2 className="text-xl font-semibold">Your Cart</h2>
                   <button
                     onClick={() => setIsCartOpen(false)}
@@ -433,7 +518,7 @@ export default function FoodOrderApp() {
                 </div>
 
                 {cartItems.length > 0 && !showCheckout && (
-                  <div className="border-t p-6">
+                  <div className="border-t border-orange-500 p-6">
                     <div className="space-y-2 mb-4">
                       <div className="flex justify-between text-gray-600">
                         <span>Subtotal:</span>
@@ -467,7 +552,7 @@ export default function FoodOrderApp() {
 
                 {/* Checkout Flow */}
                 {showCheckout && (
-                  <div className="border-t p-6 ">
+                  <div className="border-t border-orange-500 p-6 ">
                     {/* Step Indicator */}
                     <div className="flex items-center justify-center mb-6">
                       <div className="flex items-center space-x-4">
@@ -873,7 +958,7 @@ export default function FoodOrderApp() {
                               <span>Tax:</span>
                               <span>${tax.toFixed(2)}</span>
                             </div>
-                            <div className="border-t pt-2 flex justify-between font-semibold">
+                            <div className="border-t border-orange-500 pt-2 flex justify-between font-semibold">
                               <span>Total:</span>
                               <span>${grandTotal.toFixed(2)}</span>
                             </div>
