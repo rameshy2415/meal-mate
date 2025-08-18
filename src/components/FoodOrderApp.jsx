@@ -31,19 +31,41 @@ import {
   TrendingUp,
   ChevronLeft,
   ChevronRight,
+  LogIn,
 } from "lucide-react";
+
+import Login from "./Login";
 
 export default function FoodOrderApp() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLogin, setLogin] = useState(false);
   const [isLeftMenu, setLeftMenu] = useState(false);
   const [isAuth, setAuth] = useState(false);
   const [isThreeDot, setThreeDot] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Margherita Pizza", price: 12.99, quantity: 1, image: "🍕" },
-    { id: 2, name: "Chicken Burger", price: 8.99, quantity: 2, image: "🍔" },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    if (isLogin) {
+      setCartItems([
+        {
+          id: 1,
+          name: "Margherita Pizza",
+          price: 12.99,
+          quantity: 1,
+          image: "🍕",
+        },
+        {
+          id: 2,
+          name: "Chicken Burger",
+          price: 8.99,
+          quantity: 2,
+          image: "🍔",
+        },
+      ]);
+    }
+  }, [isLogin]);
 
   const [selectedCategory, setSelectedCategory] = useState("pizza");
 
@@ -229,7 +251,6 @@ export default function FoodOrderApp() {
   // Auto-play carousel
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
     }, 4000);
@@ -294,6 +315,10 @@ export default function FoodOrderApp() {
     placeOrder();
   };
 
+  const loginHandler = () => {
+    setLogin(true);
+  };
+
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gray-50">
@@ -333,18 +358,31 @@ export default function FoodOrderApp() {
               </div>
 
               <div className="relative flex items-center p-2 rounded-lg hover:text-orange-600 hover:cursor-pointer hover:bg-orange-50">
-                <button
-                  onClick={() => {
-                    setAuth((prev) => !prev);
-                    setThreeDot(false);
-                  }}
-                  className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
-                >
-                  <CircleUserRound className="h-5 w-5" />
-                  <span className="text-md">Login</span>
-                  {isAuth && <ChevronUp className="h-4 w-4 " />}
-                  {!isAuth && <ChevronDown className="h-4 w-4 " />}
-                </button>
+                {isLogin && (
+                  <button
+                    onClick={() => {
+                      setAuth((prev) => !prev);
+                      setThreeDot(false);
+                    }}
+                    className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
+                  >
+                    <CircleUserRound className="h-5 w-5" />
+                    <span className="text-md">Ramesh</span>
+                    {isAuth && <ChevronUp className="h-4 w-4 " />}
+                    {!isAuth && <ChevronDown className="h-4 w-4 " />}
+                  </button>
+                )}
+
+                {!isLogin && (
+                  <button
+                    onClick={loginHandler}
+                    className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
+                  >
+                    <CircleUserRound className="h-5 w-5" />
+                    <span className="text-md">Login</span>
+                    <ChevronDown className="h-4 w-4 " />
+                  </button>
+                )}
 
                 {isAuth && (
                   <ul className="h-auto w-50 bg-gray-50 absolute top-10 left-0 shadow-lg text-gray-500 text-xs rounded-lg flex flex-col">
@@ -426,8 +464,14 @@ export default function FoodOrderApp() {
 
                     <a
                       href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setAuth(false);
+                        setLogin(false);
+                        setCartItems([]);
+                      }}
                       className="hover:bg-gray-100 py-3 px-2"
-                      title="My Profile"
+                      title="Logout"
                     >
                       <li className="flex space-x-4 px-2 font-semibold text-gray-900">
                         <LogOut className="h-4 w-4" />
@@ -504,9 +548,9 @@ export default function FoodOrderApp() {
           </div>
         </header>
 
+        {/* Body */}
         <main className="flex-1 overflow-y-auto p-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            
             {/* Responsive Carousel */}
             <div className="mb-8">
               <div
@@ -699,6 +743,7 @@ export default function FoodOrderApp() {
           </div>
         </main>
 
+        {/* Footer */}
         <footer className="bg-white shadow-sm sticky bottom-0 py-4">
           <div className="flex justify-center space-x-4 text-center text-orange-500 font-semibold mx-2 md:mx-0">
             <span className="text-sm">
@@ -1254,7 +1299,7 @@ export default function FoodOrderApp() {
           </div>
         )}
 
-        {/* Sidebar Menu */}
+        {/* Sidebar Menu for mobile view*/}
         {isLeftMenu && (
           <div className="fixed inset-0 z-70 overflow-hidden">
             <div
