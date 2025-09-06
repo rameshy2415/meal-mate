@@ -1327,7 +1327,9 @@ export default function FoodOrderApp() {
                   </button>
                 </div>
 
-                <div className="flex-1 p-6 h-full"></div>
+                <div className="flex-1 p-6 h-full">
+                  
+                </div>
               </div>
             </div>
           </div>

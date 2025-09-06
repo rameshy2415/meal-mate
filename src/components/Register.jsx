@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 
-const Login = () => {
+const Register = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -262,17 +262,17 @@ const Login = () => {
         </div>
 
         {/* Additional Links */}
-        {/* <div className="mt-8 text-center">
+        <div className="mt-8 text-center">
           <p className="text-xs text-gray-500">
             By continuing, you agree to our{' '}
             <button className="text-orange-500 hover:underline">Terms of Service</button>
             {' '}and{' '}
             <button className="text-orange-500 hover:underline">Privacy Policy</button>
           </p>
-        </div> */}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
