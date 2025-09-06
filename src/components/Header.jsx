@@ -1,18 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ShoppingCart,
   Search,
   Menu,
-  X,
-  Plus,
-  Minus,
-  Star,
-  Clock,
   MapPin,
-  CreditCard,
-  Home,
-  Building,
-  User,
   CircleUserRound,
   ChevronUp,
   ChevronDown,
@@ -29,16 +20,16 @@ import {
   BellRing,
   HandPlatter,
   TrendingUp,
-  ChevronLeft,
-  ChevronRight,
-  LogIn,
 } from "lucide-react";
 import { Link } from "react-router";
+import { AppContext } from "../context/AppProvider";
 const Header = () => {
   const [isLogin, setLogin] = useState(false);
   const [isAuth, setAuth] = useState(false);
   const [isThreeDot, setThreeDot] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  //const [cartItems, setCartItems] = useState([]);
+
+  const {cart: cartItems, setCart: setCartItems} = useContext(AppContext)
 
   return (
     <header className="bg-white md:shadow-sm sticky top-0  z-60">
@@ -49,7 +40,6 @@ const Header = () => {
             {/* Left Menu for Mobile */}
             <button
               className="md:hidden p-2 text-gray-600"
-              onClick={() => console((prev) => !prev)}
             >
               <Menu className="h-6 w-6" />
             </button>

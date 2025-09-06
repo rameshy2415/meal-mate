@@ -1,12 +1,9 @@
-import menuItem from "./menuItem.json"; // direct import
+import menuItems from "../data/menuItems.json";
 const Products = () => {
-
-
-
   return (
     <>
       <ul>
-        {menuItem.map((item) => (
+        {menuItems.map((item) => (
           <li key={item.id}>
             {item.name} — 💲{item.price}
           </li>

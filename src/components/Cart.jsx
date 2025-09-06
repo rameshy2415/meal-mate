@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router";
 import {
   MoveLeft,
@@ -11,12 +11,12 @@ import {
   Home,
   Building,
 } from "lucide-react";
+import { AppContext } from "../context/AppProvider";
 const Cart = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-
   const [showCheckout, setShowCheckout] = useState(false);
   const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
-  const [cartItems, setCartItems] = useState([]);
+  const {cart: cartItems, setCart: setCartItems, updateCartItem} = useContext(AppContext)
 
   const [deliveryAddress, setDeliveryAddress] = useState({
     type: "home",
@@ -48,18 +48,6 @@ const Cart = () => {
   ];
 
   console.log(setIsProcessingPayment, isCartOpen);
-
-  const updateCartQuantity = (id, change) => {
-    setCartItems((items) =>
-      items
-        .map((item) =>
-          item.id === id
-            ? { ...item, quantity: Math.max(0, item.quantity + change) }
-            : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
 
   const proceedToPayment = () => {
     setCurrentStep("payment");
@@ -114,12 +102,12 @@ const Cart = () => {
 
   return (
     <>
-      <div className="fixed inset-0 z-70 overflow-hidden md:static md:inset-auto md:top-auto md:right-auto md:min-h-screen md:flex md:justify-center md:mt-7">
+      <div className="fixed inset-0 z-70 overflow-hidden md:static md:inset-auto md:min-h-screen md:flex md:justify-center md:mt-7">
         {/*  <div
           className="absolute inset-0 bg-opacity-50"
           onClick={() => setIsCartOpen(false)}
         ></div> */}
-        <div className="absolute right-0 top-0 md:static md:top-auto md:right-auto h-full w-full max-w-md md:max-w-lg bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div className="absolute right-0 top-0 md:static h-full w-full max-w-md md:max-w-lg md:p-6 bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto">
           <div className="flex flex-col h-full">
             <div className="flex md:hidden items-center justify-between p-6 border-b border-orange-500">
               <Link to="..">
@@ -140,12 +128,14 @@ const Cart = () => {
                 <div className="text-center text-gray-500 mt-8">
                   <ShoppingCart className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Your cart is empty</p>
-                  <Link
-                    to="/login"
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-medium hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 mt-5"
-                  >
-                    Login
-                  </Link>
+                  <div className="flex justify-center mt-5">
+                    <Link
+                      to="/login"
+                      className="w-full md:w-2/4 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-medium hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                    >
+                      Login
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -165,7 +155,7 @@ const Cart = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <button
-                          onClick={() => updateCartQuantity(item.id, -1)}
+                          onClick={() => updateCartItem(item.id, -1)}
                           className="p-1 hover:bg-gray-200 rounded"
                         >
                           <Minus className="h-4 w-4" />
@@ -174,7 +164,7 @@ const Cart = () => {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() => updateCartQuantity(item.id, 1)}
+                          onClick={() => updateCartItem(item.id, 1)}
                           className="p-1 hover:bg-gray-200 rounded"
                         >
                           <Plus className="h-4 w-4" />

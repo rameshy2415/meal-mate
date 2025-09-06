@@ -9,6 +9,8 @@ import About from "./components/About";
 import RootLayout from "./components/RootLayout";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
+import ProductDetailsPage from "./components/ProductDetailsPage";
+import Products from "./components/Products";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +24,8 @@ function App() {
         { path: "login", Component: Login },
         { path: "register", Component: Register },
         { path: "cart", Component: Cart },
+        { path: "products", Component: Products },
+        { path: "products/product-details", Component: ProductDetailsPage },
         // {
         //   path: "/auth",
         //   Component: AuthLayout,

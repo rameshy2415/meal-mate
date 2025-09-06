@@ -64,7 +64,7 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const updateCartItem = (id, quantity) => {
+/*   const updateCartItem = (id, quantity) => {
     if (quantity <= 0) {
       setCart((prev) => prev.filter((item) => item.id !== id));
     } else {
@@ -72,6 +72,18 @@ const AppProvider = ({ children }) => {
         prev.map((item) => (item.id === id ? { ...item, quantity } : item))
       );
     }
+  }; */
+
+  const updateCartItem = (id, change) => {
+    setCart((items) =>
+      items
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: Math.max(0, item.quantity + change) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
   };
 
   const clearCart = () => {
