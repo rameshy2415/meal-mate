@@ -44,12 +44,9 @@ const Header = () => {
     <header className="bg-white md:shadow-sm sticky top-0  z-60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
           {/* Brand Icon */}
           <div className="flex items-center space-x-4">
-            
-
-             {/* Left Menu for Mobile */}
+            {/* Left Menu for Mobile */}
             <button
               className="md:hidden p-2 text-gray-600"
               onClick={() => console((prev) => !prev)}
@@ -57,18 +54,23 @@ const Header = () => {
               <Menu className="h-6 w-6" />
             </button>
 
-            <div>
-              <HandPlatter className="h-8 w-8 text-orange-500" />
-            </div>
-            <Link to="/" className="text-2xl font-bold text-orange-600 hidden md:block">
-              FoodHub
+            <Link to="/">
+              <div className="flex items-center justify-center space-x-1">
+                <span>
+                  {" "}
+                  <HandPlatter className="h-8 w-8 text-orange-500" />{" "}
+                </span>
+                <span className="text-2xl font-bold text-orange-600 hidden md:block">
+                  {" "}
+                  FoodHub
+                </span>
+              </div>
             </Link>
 
             <div className="hidden md:flex items-center space-x-2 text-orange-500">
               <MapPin className="h-4 w-4" />
               <span className="text-sm">Deliver to: Mumbai, MH</span>
             </div>
-
           </div>
 
           {/* Search */}
@@ -271,7 +273,6 @@ const Header = () => {
               </ul>
             )}
           </div>
-
         </div>
       </div>
     </header>

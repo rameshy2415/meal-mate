@@ -1,0 +1,8 @@
+[
+    { "id": "pizza", "name": "Pizza", "icon": "🍕" },
+    { "id": "burgers", "name": "Burgers", "icon": "🍔" },
+    { "id": "pasta", "name": "Pasta", "icon": "🍝" },
+    { "id": "salads", "name": "Salads", "icon": "🥗" },
+    { "id": "desserts", "name": "Desserts", "icon": "🍰" },
+    { "id": "drinks", "name": "Drinks", "icon": "🥤" }
+  ]

@@ -1,106 +1,20 @@
 import React, { useState, useEffect } from "react";
+import categories from "../data/categories.json";
+import menuItems from "../data/menuItems.json";
+import carouselSlides from '../data/carouselSlides.json';
 import {
   Plus,
   Star,
   Clock,
   ChevronLeft,
   ChevronRight,
-  LogIn,
 } from "lucide-react";
 
 const Home = () => {
   const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
-    setCartItems([
-      {
-        id: 1,
-        name: "Margherita Pizza",
-        price: 12.99,
-        quantity: 1,
-        image: "🍕",
-      },
-      {
-        id: 2,
-        name: "Chicken Burger",
-        price: 8.99,
-        quantity: 2,
-        image: "🍔",
-      },
-    ]);
-  }, []);
-
   const [selectedCategory, setSelectedCategory] = useState("pizza");
 
-  const categories = [
-    { id: "pizza", name: "Pizza", icon: "🍕" },
-    { id: "burgers", name: "Burgers", icon: "🍔" },
-    { id: "pasta", name: "Pasta", icon: "🍝" },
-    { id: "salads", name: "Salads", icon: "🥗" },
-    { id: "desserts", name: "Desserts", icon: "🍰" },
-    { id: "drinks", name: "Drinks", icon: "🥤" },
-  ];
-
-  const menuItems = {
-    pizza: [
-      {
-        id: 1,
-        name: "Margherita Pizza",
-        price: 12.99,
-        rating: 4.8,
-        time: "25-30 min",
-        image: "🍕",
-        description: "Fresh tomatoes, mozzarella, basil",
-      },
-      {
-        id: 2,
-        name: "Pepperoni Pizza",
-        price: 14.99,
-        rating: 4.9,
-        time: "25-30 min",
-        image: "🍕",
-        description: "Pepperoni, mozzarella, tomato sauce",
-      },
-      {
-        id: 3,
-        name: "BBQ Chicken Pizza",
-        price: 16.99,
-        rating: 4.7,
-        time: "30-35 min",
-        image: "🍕",
-        description: "BBQ sauce, chicken, red onions, cilantro",
-      },
-    ],
-    burgers: [
-      {
-        id: 4,
-        name: "Classic Burger",
-        price: 8.99,
-        rating: 4.6,
-        time: "15-20 min",
-        image: "🍔",
-        description: "Beef patty, lettuce, tomato, onions",
-      },
-      {
-        id: 5,
-        name: "Chicken Burger",
-        price: 9.99,
-        rating: 4.7,
-        time: "15-20 min",
-        image: "🍔",
-        description: "Grilled chicken, lettuce, mayo",
-      },
-      {
-        id: 6,
-        name: "Veggie Burger",
-        price: 7.99,
-        rating: 4.5,
-        time: "15-20 min",
-        image: "🍔",
-        description: "Plant-based patty, avocado, sprouts",
-      },
-    ],
-  };
 
   const addToCart = (item) => {
     setCartItems((prevItems) => {
@@ -129,45 +43,6 @@ const Home = () => {
 
   console.log(grandTotal);
 
-  // Carousel data
-  const carouselSlides = [
-    {
-      id: 1,
-      title: "30% Off on Pizza",
-      subtitle: "Limited Time Offer",
-      description: "Get your favorite pizzas with amazing discounts",
-      image: "🍕",
-      bgColor: "from-red-500 to-orange-500",
-      buttonText: "Order Now",
-    },
-    {
-      id: 2,
-      title: "Free Delivery",
-      subtitle: "On Orders Above $25",
-      description: "No delivery charges for orders over $25",
-      image: "🚚",
-      bgColor: "from-green-500 to-blue-500",
-      buttonText: "Start Ordering",
-    },
-    {
-      id: 3,
-      title: "Fresh Salads",
-      subtitle: "Healthy & Delicious",
-      description: "Farm fresh ingredients delivered to your door",
-      image: "🥗",
-      bgColor: "from-purple-500 to-pink-500",
-      buttonText: "Explore Menu",
-    },
-    {
-      id: 4,
-      title: "Burger Combo",
-      subtitle: "Buy 1 Get 1 Free",
-      description: "Double the taste, double the fun",
-      image: "🍔",
-      bgColor: "from-yellow-500 to-red-500",
-      buttonText: "Order Combo",
-    },
-  ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -292,7 +167,7 @@ const Home = () => {
           </div>
 
           {/* Hero Section */}
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 text-white mb-8">
+          {/* <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 text-white mb-8">
             <div className="max-w-2xl">
               <h1 className="text-4xl font-bold mb-4">
                 Delicious Food, Delivered Fast
@@ -315,7 +190,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Categories */}
           <div className="mb-8">

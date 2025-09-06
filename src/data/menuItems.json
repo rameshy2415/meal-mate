@@ -1,0 +1,60 @@
+{
+    "pizza": [
+      {
+        "id": 1,
+        "name": "Margherita Pizza",
+        "price": 12.99,
+        "rating": 4.8,
+        "time": "25-30 min",
+        "image": "🍕",
+        "description": "Fresh tomatoes, mozzarella, basil"
+      },
+      {
+        "id": 2,
+        "name": "Pepperoni Pizza",
+        "price": 14.99,
+        "rating": 4.9,
+        "time": "25-30 min",
+        "image": "🍕",
+        "description": "Pepperoni, mozzarella, tomato sauce"
+      },
+      {
+        "id": 3,
+        "name": "BBQ Chicken Pizza",
+        "price": 16.99,
+        "rating": 4.7,
+        "time": "30-35 min",
+        "image": "🍕",
+        "description": "BBQ sauce, chicken, red onions, cilantro"
+      }
+    ],
+    "burgers": [
+      {
+        "id": 4,
+        "name": "Classic Burger",
+        "price": 8.99,
+        "rating": 4.6,
+        "time": "15-20 min",
+        "image": "🍔",
+        "description": "Beef patty, lettuce, tomato, onions"
+      },
+      {
+        "id": 5,
+        "name": "Chicken Burger",
+        "price": 9.99,
+        "rating": 4.7,
+        "time": "15-20 min",
+        "image": "🍔",
+        "description": "Grilled chicken, lettuce, mayo"
+      },
+      {
+        "id": 6,
+        "name": "Veggie Burger",
+        "price": 7.99,
+        "rating": 4.5,
+        "time": "15-20 min",
+        "image": "🍔",
+        "description": "Plant-based patty, avocado, sprouts"
+      }
+    ]
+  }
