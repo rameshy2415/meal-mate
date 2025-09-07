@@ -1,11 +1,18 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext } from "react";
 
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [selectedUpiApp, setSelectedUpiApp] = useState("");
+  const [upiId, setUpiId] = useState("");
+
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
 
   // Check for logged in user on mount
   useEffect(() => {
@@ -64,7 +71,7 @@ const AppProvider = ({ children }) => {
     });
   };
 
-/*   const updateCartItem = (id, quantity) => {
+  /*   const updateCartItem = (id, quantity) => {
     if (quantity <= 0) {
       setCart((prev) => prev.filter((item) => item.id !== id));
     } else {
@@ -94,6 +101,10 @@ const AppProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+const proceedToPayment = (nextStep) => {
+    setCurrentStep(nextStep);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -106,6 +117,18 @@ const AppProvider = ({ children }) => {
         updateCartItem,
         clearCart,
         getCartTotal,
+        isProcessingPayment,
+        setIsProcessingPayment,
+        paymentMethod,
+        setPaymentMethod,
+        selectedUpiApp, 
+        setSelectedUpiApp,
+        upiId, 
+        setUpiId,
+        showCheckout, 
+        setShowCheckout,
+        currentStep,
+        proceedToPayment
       }}
     >
       {children}

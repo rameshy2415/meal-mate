@@ -23,13 +23,13 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import { AppContext } from "../context/AppProvider";
+
 const Header = () => {
   const [isLogin, setLogin] = useState(false);
   const [isAuth, setAuth] = useState(false);
   const [isThreeDot, setThreeDot] = useState(false);
-  //const [cartItems, setCartItems] = useState([]);
 
-  const {cart: cartItems, setCart: setCartItems} = useContext(AppContext)
+  const {cart: cartItems, setCart: setCartItems} = useContext(AppContext) || {};
 
   return (
     <header className="bg-white md:shadow-sm sticky top-0  z-60">

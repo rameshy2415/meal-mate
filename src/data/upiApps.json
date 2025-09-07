@@ -1,0 +1,8 @@
+[
+    { "id": "paytm", "name": "Paytm", "icon": "💰", "color": "bg-blue-500" },
+    { "id": "gpay", "name": "Google Pay", "icon": "🟢", "color": "bg-green-500" },
+    { "id": "phonepe", "name": "PhonePe", "icon": "💜", "color": "bg-purple-500" },
+    { "id": "amazpay", "name": "Amazon Pay", "icon": "🟠", "color": "bg-orange-600" },
+    { "id": "bhim", "name": "BHIM", "icon": "🇮🇳", "color": "bg-blue-600" },
+    { "id": "cred", "name": "CRED", "icon": "💳", "color": "bg-black" }
+  ]

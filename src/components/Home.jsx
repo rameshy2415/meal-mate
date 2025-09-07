@@ -2,51 +2,18 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router";
 import categories from "../data/categories.json";
 import menuItems from "../data/menuItems.json";
-import carouselSlides from '../data/carouselSlides.json';
-import {
-  Plus,
-  Star,
-  Clock,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import carouselSlides from "../data/carouselSlides.json";
+import { Plus, Star, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import { AppContext } from "../context/AppProvider";
 
 const Home = () => {
-  //const [cartItems, setCartItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("pizza");
-  const {cart: cartItems, addToCart} = useContext(AppContext)
-
-/*   const addToCart = (item) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find(
-        (cartItem) => cartItem.id === item.id
-      );
-      if (existingItem) {
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      } else {
-        return [...prevItems, { ...item, quantity: 1, image: item.image }];
-      }
-    });
-  }; */
-
-  const cartTotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
-  const deliveryFee = 2.99;
-  const tax = cartTotal * 0.1;
-  const grandTotal = cartTotal + deliveryFee + tax;
-  console.log(grandTotal);
+  const { addToCart } = useContext(AppContext);
 
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  
   // Auto-play carousel
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -55,7 +22,7 @@ const Home = () => {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, carouselSlides.length]);
+  }, [isAutoPlaying]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
@@ -258,7 +225,12 @@ const Home = () => {
                         <Plus className="h-4 w-4" />
                         <span>Add</span>
                       </button>
-                      <Link to="/products/product-details" className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors duration-200 flex items-center space-x-2">Details</Link>
+                      <Link
+                        to="/products/product-details"
+                        className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors duration-200 flex items-center space-x-2"
+                      >
+                        Details
+                      </Link>
                     </div>
                   </div>
                 </div>

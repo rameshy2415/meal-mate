@@ -129,7 +129,7 @@ const ManageAddress = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen">
+    <div className="max-w-4xl mx-auto p-0 bg-gray-50 min-h-screen">
       <div className="bg-white rounded-lg shadow-sm">
         {/* Header */}
         <div className="border-b border-gray-200 p-6">
@@ -313,7 +313,7 @@ const ManageAddress = () => {
         )}
 
         {/* Address List */}
-        <div className="p-6">
+        <div className="p-2">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Saved Addresses</h2>
           
           {addresses.length === 0 ? (
