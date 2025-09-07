@@ -16,7 +16,7 @@ const AppProvider = ({ children }) => {
 
   // Check for logged in user on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem("foodapp_user");
+    const savedUser = sessionStorage.getItem("foodapp_user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -24,21 +24,21 @@ const AppProvider = ({ children }) => {
 
   const login = (email, password) => {
     // Simple mock authentication
-    const users = JSON.parse(localStorage.getItem("foodapp_users") || "[]");
+    const users = JSON.parse(sessionStorage.getItem("foodapp_users") || "[]");
     const foundUser = users.find(
       (u) => u.email === email && u.password === password
     );
 
     if (foundUser) {
       setUser(foundUser);
-      localStorage.setItem("foodapp_user", JSON.stringify(foundUser));
+      sessionStorage.setItem("foodapp_user", JSON.stringify(foundUser));
       return true;
     }
     return false;
   };
 
   const register = (userData) => {
-    const users = JSON.parse(localStorage.getItem("foodapp_users") || "[]");
+    const users = JSON.parse(sessionStorage.getItem("foodapp_users") || "[]");
     const existingUser = users.find((u) => u.email === userData.email);
 
     if (existingUser) {
@@ -47,16 +47,16 @@ const AppProvider = ({ children }) => {
 
     const newUser = { ...userData, id: Date.now() };
     users.push(newUser);
-    localStorage.setItem("foodapp_users", JSON.stringify(users));
+    sessionStorage.setItem("foodapp_users", JSON.stringify(users));
     setUser(newUser);
-    localStorage.setItem("foodapp_user", JSON.stringify(newUser));
+    sessionStorage.setItem("foodapp_user", JSON.stringify(newUser));
     return true;
   };
 
   const logout = () => {
     setUser(null);
     setCart([]);
-    localStorage.removeItem("foodapp_user");
+    sessionStorage.removeItem("foodapp_user");
   };
 
   const addToCart = (item) => {

@@ -26,12 +26,11 @@ import { Link, useNavigate } from "react-router";
 import { AppContext } from "../context/AppProvider";
 
 const Header = () => {
-  const [isLogin, setLogin] = useState(false);
-  const [isAuth, setAuth] = useState(false);
-  const [isThreeDot, setThreeDot] = useState(false);
 
-  const { cart: cartItems, setCart: setCartItems } =
-    useContext(AppContext) || {};
+  const [isThreeDot, setThreeDot] = useState(false);
+  const [showUserProfile, setUserProfile] = useState(false);
+
+  const { cart: cartItems, clearCart, logout } = useContext(AppContext) || {};
 
   const navigate = useNavigate();
 
@@ -39,6 +38,9 @@ const Header = () => {
     navigate("/manage-address");
     setThreeDot(false);
   };
+
+
+const { user } = useContext(AppContext) || {};
 
   return (
     <header className="bg-white md:shadow-sm sticky top-0  z-60">
@@ -84,22 +86,22 @@ const Header = () => {
 
           {/* Login */}
           <div className="relative flex items-center p-2 rounded-lg hover:text-orange-600 hover:cursor-pointer hover:bg-orange-50">
-            {isLogin && (
+            {user && (
               <button
                 onClick={() => {
-                  setAuth((prev) => !prev);
                   setThreeDot(false);
+                  setUserProfile(prev => !prev)
+
                 }}
                 className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
               >
                 <CircleUserRound className="h-5 w-5" />
                 <span className="text-lg leading-normal">Ramesh</span>
-                {isAuth && <ChevronUp className="h-4 w-4 " />}
-                {!isAuth && <ChevronDown className="h-4 w-4 " />}
+                <ChevronDown className="h-4 w-4 " />
               </button>
             )}
 
-            {!isLogin && (
+            {!user && (
               <Link
                 to="/login"
                 className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
@@ -110,7 +112,7 @@ const Header = () => {
               </Link>
             )}
 
-            {isAuth && (
+            {showUserProfile && (
               <ul className="h-auto w-50 bg-gray-50 absolute top-10 left-0 shadow-lg text-gray-500 text-xs rounded-lg flex flex-col">
                 <a
                   href="#"
@@ -188,13 +190,13 @@ const Header = () => {
                   </li>
                 </a>
 
-                <a
+                <button
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    setAuth(false);
-                    setLogin(false);
-                    setCartItems([]);
+                    clearCart();
+                    logout();
+                    setUserProfile(false);
                   }}
                   className="hover:bg-gray-100 py-3 px-2"
                   title="Logout"
@@ -203,7 +205,7 @@ const Header = () => {
                     <LogOut className="h-4 w-4" />
                     <h4 className="font-medium">Logout</h4>
                   </li>
-                </a>
+                </button>
               </ul>
             )}
           </div>
@@ -228,7 +230,6 @@ const Header = () => {
             <button
               onClick={() => {
                 setThreeDot((prev) => !prev);
-                setAuth(false);
               }}
               className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
             >
