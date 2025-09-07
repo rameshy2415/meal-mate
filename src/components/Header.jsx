@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import {
   ShoppingCart,
   Search,
@@ -20,8 +20,9 @@ import {
   BellRing,
   HandPlatter,
   TrendingUp,
+  MapPinHouse,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AppContext } from "../context/AppProvider";
 
 const Header = () => {
@@ -29,7 +30,15 @@ const Header = () => {
   const [isAuth, setAuth] = useState(false);
   const [isThreeDot, setThreeDot] = useState(false);
 
-  const {cart: cartItems, setCart: setCartItems} = useContext(AppContext) || {};
+  const { cart: cartItems, setCart: setCartItems } =
+    useContext(AppContext) || {};
+
+  const navigate = useNavigate();
+
+  const profileHandle = () => {
+    navigate("/manage-address");
+    setThreeDot(false);
+  };
 
   return (
     <header className="bg-white md:shadow-sm sticky top-0  z-60">
@@ -38,9 +47,7 @@ const Header = () => {
           {/* Brand Icon */}
           <div className="flex items-center space-x-4">
             {/* Left Menu for Mobile */}
-            <button
-              className="md:hidden p-2 text-gray-600"
-            >
+            <button className="md:hidden p-2 text-gray-600">
               <Menu className="h-6 w-6" />
             </button>
 
@@ -250,6 +257,17 @@ const Header = () => {
                     <h4 className="font-medium">24x7 Customer Care</h4>
                   </li>
                 </a>
+                <button
+                  onClick={profileHandle}
+                  className="hover:bg-gray-100 py-3 px-2"
+                  title="Manage Address"
+                >
+                  <li className="flex space-x-4 px-2 font-semibold text-gray-900">
+                    <MapPinHouse className="h-4 w-4" />
+                    <h4 className="font-medium">Manage Address</h4>
+                  </li>
+                </button>
+
                 <a
                   href="#"
                   className="hover:bg-gray-100 py-3 px-2"

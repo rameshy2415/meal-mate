@@ -11,6 +11,7 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 import Products from "./components/Products";
+import ManageAddress from "./components/ManageAddress";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,7 @@ function App() {
         { path: "cart", Component: Cart },
         { path: "products", Component: Products },
         { path: "products/product-details", Component: ProductDetailsPage },
+         { path: "manage-address", Component: ManageAddress },
         // {
         //   path: "/auth",
         //   Component: AuthLayout,

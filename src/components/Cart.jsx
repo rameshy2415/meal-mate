@@ -12,22 +12,21 @@ import { AppContext } from "../context/AppProvider";
 import Payment from "./Payment";
 import Address from "./Address";
 
-const Cart = () => {
 
+const Cart = () => {
   const {
     cart: cartItems,
     getCartTotal,
     updateCartItem,
-    showCheckout, 
+    showCheckout,
     setShowCheckout,
-    currentStep, 
-    proceedToPayment
+    currentStep,
+    proceedToPayment,
   } = useContext(AppContext);
-
 
   const handleCheckout = () => {
     setShowCheckout(true);
-    proceedToPayment('address')
+    proceedToPayment("address");
   };
 
   const cartTotal = getCartTotal();
@@ -186,13 +185,13 @@ const Cart = () => {
 
                 {/* Address Step */}
                 {currentStep === "address" && (
-                  <Address />
+                  <>
+                    <Address />
+                  </>
                 )}
 
                 {/* Payment Step */}
-                {currentStep === "payment" && (
-                  <Payment />
-                )}
+                {currentStep === "payment" && <Payment />}
               </div>
             )}
           </div>

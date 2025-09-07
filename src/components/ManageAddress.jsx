@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Plus, Edit2, Trash2, MapPin, Home, Briefcase } from 'lucide-react';
 
 const ManageAddress = () => {
@@ -129,7 +129,7 @@ const ManageAddress = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-0 bg-gray-50 min-h-screen">
+    <div className="max-w-4xl mx-auto p-0 bg-gray-50  mt-6">
       <div className="bg-white rounded-lg shadow-sm">
         {/* Header */}
         <div className="border-b border-gray-200 p-6">

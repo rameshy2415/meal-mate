@@ -10,7 +10,7 @@ const RootLayout = () => {
           {/* Header */}
           <Header />
 
-          <main className="">
+          <main className="flex-grow">
             {/* This is where child routes render */}
             <Outlet />
           </main>

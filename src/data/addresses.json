@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Ramesh Yadav",
+    "mobile": "8270078469",
+    "type": "HOME",
+    "address":
+      "Room no 402, Ganga yamuna apartment, Diva gaon, sector 9, Samsan bhumi, Navi Mumbai, Maharashtra",
+    "pincode": "400708"
+  },
+  {
+    "id": 2,
+    "name": "Sonu Saw",
+    "mobile": "8270078469",
+    "type": "HOME",
+    "address":
+      "Room no 5, Rajesh compound, pascal Chowk, DN dubey road, Dahisar east, Thane, Maharashtra",
+    "pincode": "400068"
+  },
+  {
+    "id": 3,
+    "name": "Pawan Kumar",
+    "mobile": "8270078469",
+    "type": "HOME",
+    "address":
+      "Room no 1, Vasita colony, Sri Ram chowk, Kalyan, Maharashtra",
+    "pincode": "421004"
+  }
+]
