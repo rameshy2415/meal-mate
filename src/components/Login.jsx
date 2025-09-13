@@ -46,9 +46,13 @@ const Login = () => {
     setTimeout(() => {
       setIsLoading(false);
       if (isLogin) {
-        login(formData.email, formData.password);
-        sessionStorage.setItem("isAuth", true);
-        navigate("/");
+        const isAuthenticated = login(formData.email, formData.password);
+        if (isAuthenticated) {
+          sessionStorage.setItem("isAuth", true);
+          navigate("/");
+        }else{
+          alert("UserId or Password is not correct!");
+        }
       } else {
         alert("Account created successfully!");
         register(formData);

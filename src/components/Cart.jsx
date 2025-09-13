@@ -11,7 +11,9 @@ import {
 import { AppContext } from "../context/AppProvider";
 import Payment from "./Payment";
 import Address from "./Address";
-
+import PaymentButton from "./PaymentButton";
+import SelectAddress from "./SelectAddress";
+import CartSummary from "./CartSummary";
 
 const Cart = () => {
   const {
@@ -22,6 +24,7 @@ const Cart = () => {
     setShowCheckout,
     currentStep,
     proceedToPayment,
+    user,
   } = useContext(AppContext);
 
   const handleCheckout = () => {
@@ -36,11 +39,11 @@ const Cart = () => {
 
   return (
     <>
-      <div className="fixed inset-0 z-70 overflow-hidden md:static md:inset-auto md:min-h-screen md:flex md:justify-center md:mt-7">
+      <div className="fixed inset-0 z-70 overflow-hidden md:static md:inset-auto md:flex md:justify-center md:mt-7 ">
         <div className="absolute right-0 top-0 md:static h-full w-full max-w-lg md:max-w-2xl md:p-6 bg-white transform transition-transform duration-300 ease-in-out overflow-y-auto">
           <div className="flex flex-col h-full">
             {/* Back btn for mobile device */}
-            <div className="flex md:hidden items-center justify-between p-6 border-b border-orange-500">
+            <div className="flex md:hidden items-center justify-between p-6 border-b border-gray-300">
               <Link to="..">
                 <MoveLeft className="h-5 w-5" />
               </Link>
@@ -56,12 +59,21 @@ const Cart = () => {
                   <ShoppingCart className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Your cart is empty</p>
                   <div className="flex justify-center mt-5">
-                    <Link
-                      to="/login"
-                      className="w-full md:w-2/4 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-medium hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
-                    >
-                      Login
-                    </Link>
+                    {user ? (
+                      <Link
+                        to="/"
+                        className="w-full md:w-2/4 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-medium hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                      >
+                        Show now
+                      </Link>
+                    ) : (
+                      <Link
+                        to="/login"
+                        className="w-full md:w-2/4 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-medium hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                      >
+                        Login
+                      </Link>
+                    )}
                   </div>
                 </div>
               ) : (
@@ -105,7 +117,7 @@ const Cart = () => {
 
             {/* Total Summary details*/}
             {cartItems.length > 0 && !showCheckout && (
-              <div className="border-t border-orange-500 p-6">
+              <div className="border-t border-gray-300 p-6">
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-gray-600">
                     <span>Subtotal:</span>
@@ -119,7 +131,7 @@ const Cart = () => {
                     <span>Tax:</span>
                     <span>${tax.toFixed(2)}</span>
                   </div>
-                  <div className="border-t pt-2">
+                  <div className="border-t border-gray-300 pt-2">
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-semibold">Total:</span>
                       <span className="text-2xl font-bold text-orange-600">
@@ -139,7 +151,7 @@ const Cart = () => {
 
             {/* Checkout Flow */}
             {showCheckout && (
-              <div className="border-t border-orange-500 p-6 ">
+              <div className="border-t border-gray-300 p-6 ">
                 {/* Step Indicator */}
                 <div className="flex items-center justify-center mb-6">
                   <div className="flex items-center space-x-4">
@@ -191,7 +203,14 @@ const Cart = () => {
                 )}
 
                 {/* Payment Step */}
-                {currentStep === "payment" && <Payment />}
+                {/*  {currentStep === "payment" && <Payment />} */}
+                {currentStep === "payment" && (
+                  <>
+                    <SelectAddress />
+                    <CartSummary />
+                    <PaymentButton amount={(grandTotal * 83).toFixed(0)} />
+                  </>
+                )}
               </div>
             )}
           </div>

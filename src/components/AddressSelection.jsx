@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import addresses from "../data/addresses.json";
-import { Plus, Edit2, Trash2, MapPin, Home, Briefcase } from "lucide-react";
+import { Plus } from "lucide-react";
 import NewAddress from "./NewAddress";
+import { AppContext } from "../context/AppProvider";
 
 const AddressSelection = () => {
   const [selectedId, setSelectedId] = useState(addresses[0].id);
   const [showForm, setShowForm] = useState(false);
+  const { setAddress } = useContext(AppContext);
 
   const cancelHandler = () => {
     setShowForm(false);
@@ -14,10 +16,18 @@ const AddressSelection = () => {
   const saveHandler = (data) => {
     console.log("Form data", data);
     setShowForm(false);
-    addresses.push(data)
+    addresses.push(data);
   };
 
-  console.log("Addresses data", addresses);
+  const deliverHandler = (addressId) => {
+    console.log("Addresses data", addresses);
+    console.log("Selected Addresses Id", addressId);
+    console.log("selectedId", selectedId);
+
+    const selectedAddress = addresses.find((add) => add.id == addressId);
+    console.log("Selected Addresses data", selectedAddress);
+    setAddress(selectedAddress);
+  };
 
   return (
     <div className="max-w-full mx-auto">
@@ -47,7 +57,10 @@ const AddressSelection = () => {
                 ? "border-blue-600 bg-blue-50"
                 : "border-gray-200"
             }`}
-            onClick={() => setSelectedId(addr.id)}
+            onClick={() => {
+              setSelectedId(addr.id);
+              deliverHandler(addr.id);
+            }}
           >
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
@@ -62,7 +75,9 @@ const AddressSelection = () => {
                 <span className="ml-2 text-xs bg-gray-200 px-2 py-0.5 rounded-md">
                   {addr.type}
                 </span>
-                <span className="ml-2 text-sm text-gray-600">{addr.mobile}</span>
+                <span className="ml-2 text-sm text-gray-600">
+                  {addr.mobile}
+                </span>
               </label>
               <button className="text-blue-600 text-sm hover:underline hidden">
                 Edit
@@ -73,11 +88,14 @@ const AddressSelection = () => {
               {addr.address} - <b>{addr.pincode}</b>
             </p>
 
-            {selectedId === addr.id && (
-              <button className="mt-3 px-4 py-2 bg-orange-500 text-white rounded-md font-medium hover:bg-orange-600 transition">
+           {/*  {selectedId === addr.id && (
+              <button
+                onClick={() => deliverHandler(addr.id)}
+                className="mt-3 px-4 py-2 bg-orange-500 text-white rounded-md font-medium hover:bg-orange-600 transition"
+              >
                 Deliver Here
               </button>
-            )}
+            )} */}
           </div>
         ))}
       </div>

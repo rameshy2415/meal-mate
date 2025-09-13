@@ -93,10 +93,10 @@ const { user } = useContext(AppContext) || {};
                   setUserProfile(prev => !prev)
 
                 }}
-                className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
+                className=" text-gray-600 space-x-2  transition-colors flex justify-center items-center"
               >
                 <CircleUserRound className="h-5 w-5" />
-                <span className="text-lg leading-normal">Ramesh</span>
+                <span className="text-md leading-normal">{user.name}</span>
                 <ChevronDown className="h-4 w-4 " />
               </button>
             )}
@@ -104,10 +104,10 @@ const { user } = useContext(AppContext) || {};
             {!user && (
               <Link
                 to="/login"
-                className=" text-gray-600 space-x-2 hover:text-orange-600 transition-colors flex justify-center items-center"
+                className=" text-gray-600 space-x-2  transition-colors flex justify-center items-center"
               >
                 <CircleUserRound className="h-5 w-5" />
-                <span className="text-lg leading-normal">Login</span>
+                <span className="text-md leading-normal">LOGIN</span>
                 <ChevronDown className="h-4 w-4 " />
               </Link>
             )}

@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import upiApps from "../data/upiApps.json";
 import { AppContext } from "../context/AppProvider";
 import { CreditCard } from "lucide-react";
+import PaymentButton from "./PaymentButton";
 
 const Payment = () => {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -43,7 +44,7 @@ const Payment = () => {
             upiApps.find((app) => app.id === selectedUpiApp)?.name
           }! 🎉\nOrder placed successfully!`
         );
-        clearCart()
+        clearCart();
         setShowCheckout(false);
         setSelectedUpiApp("");
         setUpiId("");
@@ -308,12 +309,16 @@ const Payment = () => {
               <span>₹{(grandTotal * 83).toFixed(0)}</span>
             </button>
           ) : (
-            <button
-              onClick={placeOrder}
-              className="flex-1 px-4 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-            >
-              Place Order
-            </button>
+            <>
+              <button
+                onClick={placeOrder}
+                className="flex-1 px-4 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+              >
+                Place Order
+              </button>
+
+              <PaymentButton amount={(grandTotal * 83).toFixed(0)} />
+            </>
           )}
         </div>
       </div>

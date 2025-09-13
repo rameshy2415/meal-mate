@@ -27,7 +27,7 @@ function App() {
         { path: "cart", Component: Cart },
         { path: "products", Component: Products },
         { path: "products/product-details", Component: ProductDetailsPage },
-         { path: "manage-address", Component: ManageAddress },
+        { path: "manage-address", Component: ManageAddress },
         // {
         //   path: "/auth",
         //   Component: AuthLayout,
