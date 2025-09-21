@@ -150,7 +150,7 @@ const Cart = () => {
             )}
 
             {/* Checkout Flow */}
-            {showCheckout && (
+            {showCheckout && cartItems.length > 0 && (
               <div className="border-t border-gray-300 p-6 ">
                 {/* Step Indicator */}
                 <div className="flex items-center justify-center mb-6">

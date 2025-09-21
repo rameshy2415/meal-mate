@@ -11,6 +11,7 @@ const AppProvider = ({ children }) => {
   const [selectedUpiApp, setSelectedUpiApp] = useState("");
   const [upiId, setUpiId] = useState("");
   const [selectedAddress, setSelectedAddress] = useState(null);
+   const [loading, setLoading] = useState(true);
 
   const [showCheckout, setShowCheckout] = useState(false);
   const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
@@ -83,9 +84,9 @@ const AppProvider = ({ children }) => {
     }
   }; */
 
-  const setAddress = (data)=>{
-    setSelectedAddress(data)
-  }
+  const setAddress = (data) => {
+    setSelectedAddress(data);
+  };
 
   const updateCartItem = (id, change) => {
     setCart((items) =>
@@ -97,6 +98,11 @@ const AppProvider = ({ children }) => {
         )
         .filter((item) => item.quantity > 0)
     );
+
+/*     if (cart.length == 0) {
+      setShowCheckout(false);
+      setCurrentStep('address')
+    } */
   };
 
   const clearCart = () => {
@@ -107,7 +113,7 @@ const AppProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-const proceedToPayment = (nextStep) => {
+  const proceedToPayment = (nextStep) => {
     setCurrentStep(nextStep);
   };
 
@@ -127,16 +133,18 @@ const proceedToPayment = (nextStep) => {
         setIsProcessingPayment,
         paymentMethod,
         setPaymentMethod,
-        selectedUpiApp, 
+        selectedUpiApp,
         setSelectedUpiApp,
-        upiId, 
+        upiId,
         setUpiId,
-        showCheckout, 
+        showCheckout,
         setShowCheckout,
         currentStep,
         proceedToPayment,
-        selectedAddress, 
-        setAddress
+        selectedAddress,
+        setAddress,
+        loading, 
+        setLoading
       }}
     >
       {children}
