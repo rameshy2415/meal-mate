@@ -56,6 +56,7 @@ const Login = () => {
       } else {
         alert("Account created successfully!");
         register(formData);
+         navigate("/");
       }
 
       // Reset form

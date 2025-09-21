@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
   const [selectedUpiApp, setSelectedUpiApp] = useState("");
   const [upiId, setUpiId] = useState("");
   const [selectedAddress, setSelectedAddress] = useState(null);
-   const [loading, setLoading] = useState(true);
+   const [loading, setLoading] = useState(false);
 
   const [showCheckout, setShowCheckout] = useState(false);
   const [currentStep, setCurrentStep] = useState("address"); // 'address' or 'payment'
